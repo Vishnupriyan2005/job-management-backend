@@ -1,19 +1,30 @@
-// src/candidates/candidates.controller.ts
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CandidatesService } from './candidates.service';
-import { Candidate } from './candidate.entity';
+import { CreateCandidateDto } from './dto/create-candidate.dto';
 
 @Controller('candidates')
 export class CandidatesController {
   constructor(private readonly candidatesService: CandidatesService) {}
 
+  @Post()
+  create(@Body() createCandidateDto: CreateCandidateDto) {
+    return this.candidatesService.create(createCandidateDto);
+  }
+
   @Get()
-  findAll(): Promise<Candidate[]> {
+  findAll() {
     return this.candidatesService.findAll();
   }
 
-  @Post()
-  create(@Body() body: Partial<Candidate>): Promise<Candidate> {
-    return this.candidatesService.create(body);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.candidatesService.remove(+id);
   }
 }

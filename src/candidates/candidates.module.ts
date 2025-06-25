@@ -1,12 +1,10 @@
-// src/candidates/candidates.module.ts
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Candidate } from './candidate.entity';
-import { CandidatesController } from './candidates.controller';
 import { CandidatesService } from './candidates.service';
+import { CandidatesController } from './candidates.controller';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Candidate])],
+  imports: [PrismaModule],
   controllers: [CandidatesController],
   providers: [CandidatesService],
 })

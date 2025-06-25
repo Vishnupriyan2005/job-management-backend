@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { JobsService } from './jobs.service';
 import { JobsController } from './jobs.controller';
-import { Job } from './job.entity';
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Job])],
-  providers: [JobsService],
+  imports: [PrismaModule],
   controllers: [JobsController],
-  exports: [JobsService],
+  providers: [JobsService],
 })
 export class JobsModule {}
